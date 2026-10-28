@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lunéa Beauty More Color. More You.</title>
+  <meta name="description" content="Discover Lunéa Beauty lip glosses. Effortless color, lightweight texture, and high-shine finishes designed for every mood." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <!-- Main Script -->
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- Custom Luxury Glass Cursor -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- Background Ambient Sparkle Canvas -->
+  <canvas id="sparkleCanvas" class="sparkle-canvas"></canvas>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar">
+    <div class="announcement-content">
+      <span>Complimentary shipping on orders over $50</span>
+      <span class="bar-dot">&bull;</span>
+      <span>Free signature velvet pouch & shade sample with every order</span>
+      <span class="bar-dot">&bull;</span>
+      <span>100% Clean, Vegan & Cruelty-Free</span>
+    </div>
+  </div>
+
+  <!-- Sticky Navbar -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo">
+        <span class="logo-text">LUNÉA</span>
+        <span class="logo-subtext">BEAUTY</span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#shop" class="nav-link">Shop</a>
+        <a href="#shades" class="nav-link">Shades</a>
+        <a href="#showcase" class="nav-link">Formula</a>
+        <a href="#about" class="nav-link">Story</a>
+        <a href="#reviews" class="nav-link">Reviews</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn-quiz-nav" onclick="openQuizModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <span>Shade Finder</span>
+        </button>
+
+        <button class="cart-btn" id="cartBtn" aria-label="Shopping Bag">
+          <svg class="bag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <nav class="mobile-nav-links">
+      <a href="#home" class="mobile-nav-link">Home</a>
+      <a href="#shop" class="mobile-nav-link">Shop</a>
+      <a href="#shades" class="mobile-nav-link">Shades</a>
+      <a href="#showcase" class="mobile-nav-link">Formula</a>
+      <a href="#about" class="mobile-nav-link">Story</a>
+      <a href="#reviews" class="mobile-nav-link">Reviews</a>
+      <button class="btn btn-primary btn-block" style="margin-top: 1.5rem;" onclick="openQuizModal(); closeMobileMenu();">Find My Shade Quiz</button>
+    </nav>
+  </div>
+
+  <!-- Hero Section with Mouse Parallax & Interactive Finish Controls -->
+  <section class="hero" id="home">
+    <div class="hero-bg-glow" id="heroBgGlow"></div>
+    
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge hero-anim">
+          <span class="badge-dot"></span>
+          <span class="badge-text">New Formula &bull; Liquid Crystal Glass</span>
+        </div>
+
+        <h1 class="hero-title hero-anim">
+          Your Lips,<br />
+          <span class="hero-title-italic">Your Signature.</span>
+        </h1>
+
+        <p class="hero-description hero-anim">
+          Discover effortless color and glossy finishes designed for every mood. Lightweight cushion feel, non-sticky hydration, and buildable crystal shine.
+        </p>
+
+        <!-- Interactive Hero Finish Intensity Selector -->
+        <div class="hero-finish-selector hero-anim">
+          <span class="finish-selector-label">Interactive Finish Intensity:</span>
+          <div class="finish-pill-group">
+            <button class="finish-pill active" onclick="setHeroFinish('sheer', this)">Sheer Rose</button>
+            <button class="finish-pill" onclick="setHeroFinish('hydrating', this)">High Gloss</button>
+            <button class="finish-pill" onclick="setHeroFinish('mirror', this)">Crystal Mirror</button>
+          </div>
+        </div>
+
+        <div class="hero-ctas hero-anim">
+          <a href="#shades" class="btn btn-primary btn-glow">
+            <span>Explore Shades</span>
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </a>
+          <button onclick="openQuizModal()" class="btn btn-outline">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:16px; height:16px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <span>Take Shade Quiz</span>
+          </button>
+        </div>
+
+        <div class="hero-highlights hero-anim">
+          <div class="highlight-item">
+            <span class="highlight-num">100%</span>
+            <span class="highlight-lbl">Vegan & Cruelty-Free</span>
+          </div>
+          <div class="highlight-divider"></div>
+          <div class="highlight-item">
+            <span class="highlight-num">12h</span>
+            <span class="highlight-lbl">Plumping Hydration</span>
+          </div>
+          <div class="highlight-divider"></div>
+          <div class="highlight-item">
+            <span class="highlight-num">0%</span>
+            <span class="highlight-lbl">Sticky Residue</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mouse Parallax Interactive Hero Visual -->
+      <div class="hero-visual" id="heroVisualContainer">
+        <div class="hero-image-wrapper">
+          <div class="glass-card-backdrop" id="heroCardBackdrop"></div>
+          
+          <img src="images/hero.jpg" alt="Lunéa Beauty Signature Lip Gloss Tube" class="hero-product-img hero-anim-img" id="heroProductImg" />
+          
+          <!-- Floating Shimmer Interactive Badges -->
+          <div class="floating-tag floating-tag-1" id="floatTag1">
+            <svg class="sparkle-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.39 9.61L22 12L14.39 14.39L12 22L9.61 14.39L2 12L9.61 9.61L12 2Z"/></svg>
+            <span>Triple Hyaluronic Complex</span>
+          </div>
+          <div class="floating-tag floating-tag-2" id="floatTag2">
+            <span class="color-swatch-mini" id="heroSwatchMini"></span>
+            <span id="heroFinishTagText">Rose Glow Finish</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- High-Fashion Infinite Scrolling Marquee Ticker -->
+  <section class="marquee-section">
+    <div class="marquee-track">
+      <div class="marquee-content">
+        <span>✦ LIQUID CRYSTAL SHINE</span>
+        <span>✦ TRIPLE HYALURONIC HYDRATION</span>
+        <span>✦ 100% VEGAN & CRUELTY-FREE</span>
+        <span>✦ MORE COLOR. MORE YOU</span>
+        <span>✦ ZERO STICKY RESIDUE</span>
+        <span>✦ CRAFTED IN FRANCE</span>
+        <span>✦ COMPLIMENTARY WORLDWIDE SHIPPING</span>
+      </div>
+      <div class="marquee-content" aria-hidden="true">
+        <span>✦ LIQUID CRYSTAL SHINE</span>
+        <span>✦ TRIPLE HYALURONIC HYDRATION</span>
+        <span>✦ 100% VEGAN & CRUELTY-FREE</span>
+        <span>✦ MORE COLOR. MORE YOU</span>
+        <span>✦ ZERO STICKY RESIDUE</span>
+        <span>✦ CRAFTED IN FRANCE</span>
+        <span>✦ COMPLIMENTARY WORLDWIDE SHIPPING</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Collection Section -->
+  <section class="section featured-collection" id="shop">
+    <div class="container">
+      <div class="section-header center">
+        <span class="section-subtitle">THE SIGNATURE LINE</span>
+        <h2 class="section-title">Find Your Perfect Shade</h2>
+        <p class="section-intro">Formulated to enhance every skin undertone with a glass-like radiance.</p>
+        <div class="title-accent-line"></div>
+      </div>
+
+      <div class="product-grid">
+        <!-- Product 1 -->
+        <div class="product-card" data-shade="rose-glow">
+          <div class="product-image-box">
+            <span class="product-badge">Bestseller</span>
+            <div class="shine-sweep"></div>
+            <img src="images/rose_glow.jpg" alt="Lunéa Lip Gloss in Rose Glow" class="product-img" />
+            <div class="product-actions-overlay">
+              <button class="quick-add-btn" onclick="addToCart('Rose Glow', 26, 'images/rose_glow.jpg', 'Soft Rose Tint')">Quick Add &bull; $26</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="shade-dot-row">
+              <span class="shade-dot" style="background-color: #E89CAE;"></span>
+              <span class="shade-category">Soft Rose Tint</span>
+              <span class="rating-badge">★ 4.9 (128)</span>
+            </div>
+            <h3 class="product-name">Rose Glow</h3>
+            <p class="product-desc">A luminous sheer rose tint with golden micro-shimmer for effortless daytime elegance.</p>
+            <div class="product-footer">
+              <span class="product-price">$26.00</span>
+              <button class="btn-add-bag" onclick="addToCart('Rose Glow', 26, 'images/rose_glow.jpg', 'Soft Rose Tint')">
+                <span>Add to Bag</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card" data-shade="nude-muse">
+          <div class="product-image-box">
+            <div class="shine-sweep"></div>
+            <img src="images/nude_muse.jpg" alt="Lunéa Lip Gloss in Nude Muse" class="product-img" />
+            <div class="product-actions-overlay">
+              <button class="quick-add-btn" onclick="addToCart('Nude Muse', 26, 'images/nude_muse.jpg', 'Warm Caramel Nude')">Quick Add &bull; $26</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="shade-dot-row">
+              <span class="shade-dot" style="background-color: #C88D7B;"></span>
+              <span class="shade-category">Warm Caramel Nude</span>
+              <span class="rating-badge">★ 5.0 (94)</span>
+            </div>
+            <h3 class="product-name">Nude Muse</h3>
+            <p class="product-desc">A velvety warm nude with subtle terracotta undertones that enhances your natural lip tone.</p>
+            <div class="product-footer">
+              <span class="product-price">$26.00</span>
+              <button class="btn-add-bag" onclick="addToCart('Nude Muse', 26, 'images/nude_muse.jpg', 'Warm Caramel Nude')">
+                <span>Add to Bag</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card" data-shade="berry-crush">
+          <div class="product-image-box">
+            <span class="product-badge accent">Trending</span>
+            <div class="shine-sweep"></div>
+            <img src="images/berry_crush.jpg" alt="Lunéa Lip Gloss in Berry Crush" class="product-img" />
+            <div class="product-actions-overlay">
+              <button class="quick-add-btn" onclick="addToCart('Berry Crush', 26, 'images/berry_crush.jpg', 'Deep Plum Berry')">Quick Add &bull; $26</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="shade-dot-row">
+              <span class="shade-dot" style="background-color: #6B2335;"></span>
+              <span class="shade-category">Deep Plum Berry</span>
+              <span class="rating-badge">★ 4.8 (112)</span>
+            </div>
+            <h3 class="product-name">Berry Crush</h3>
+            <p class="product-desc">A rich moody plum berry gloss that delivers high-impact glass shine and rich pigment.</p>
+            <div class="product-footer">
+              <span class="product-price">$26.00</span>
+              <button class="btn-add-bag" onclick="addToCart('Berry Crush', 26, 'images/berry_crush.jpg', 'Deep Plum Berry')">
+                <span>Add to Bag</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card" data-shade="coral-kiss">
+          <div class="product-image-box">
+            <div class="shine-sweep"></div>
+            <img src="images/coral_kiss.jpg" alt="Lunéa Lip Gloss in Coral Kiss" class="product-img" />
+            <div class="product-actions-overlay">
+              <button class="quick-add-btn" onclick="addToCart('Coral Kiss', 26, 'images/coral_kiss.jpg', 'Fresh Peach Coral')">Quick Add &bull; $26</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="shade-dot-row">
+              <span class="shade-dot" style="background-color: #E2725B;"></span>
+              <span class="shade-category">Fresh Peach Coral</span>
+              <span class="rating-badge">★ 4.9 (87)</span>
+            </div>
+            <h3 class="product-name">Coral Kiss</h3>
+            <p class="product-desc">A lively sun-drenched peach shade that adds instant radiance and vibrant glass finish.</p>
+            <div class="product-footer">
+              <span class="product-price">$26.00</span>
+              <button class="btn-add-bag" onclick="addToCart('Coral Kiss', 26, 'images/rose_glow.jpg', 'Fresh Peach Coral')">
+                <span>Add to Bag</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Large Editorial Product Showcase with Interactive Ingredient Hotspots -->
+  <section class="section product-showcase" id="showcase">
+    <div class="container showcase-grid">
+      
+      <!-- Left: Interactive Visual with Hotspots -->
+      <div class="showcase-visual scroll-reveal-left">
+        <div class="glass-frame" id="showcaseImageFrame">
+          <img src="images/hero.jpg" alt="Lunéa Lip Gloss Close Up Formula" class="showcase-img" />
+          <div class="gloss-reflection-layer"></div>
+
+          <!-- Hotspot 1: Hyaluronic Acid -->
+          <div class="ingredient-hotspot hotspot-1" onclick="selectHotspot('hyaluronic', this)">
+            <span class="hotspot-pulse"></span>
+            <span class="hotspot-dot">1</span>
+            <div class="hotspot-popover">
+              <strong>Triple Hyaluronic Acid</strong>
+              <span>Locks in 12h moisture, smoothing fine lip lines for a plumped look.</span>
+            </div>
+          </div>
+
+          <!-- Hotspot 2: Cold Pressed Jojoba -->
+          <div class="ingredient-hotspot hotspot-2" onclick="selectHotspot('jojoba', this)">
+            <span class="hotspot-pulse"></span>
+            <span class="hotspot-dot">2</span>
+            <div class="hotspot-popover">
+              <strong>Cold-Pressed Jojoba Oil</strong>
+              <span>Provides weightless cushion feel with zero stickiness.</span>
+            </div>
+          </div>
+
+          <!-- Hotspot 3: Vegan Collagen -->
+          <div class="ingredient-hotspot hotspot-3" onclick="selectHotspot('collagen', this)">
+            <span class="hotspot-pulse"></span>
+            <span class="hotspot-dot">3</span>
+            <div class="hotspot-popover">
+              <strong>Vegan Collagen & Peptides</strong>
+              <span>Restores natural elasticity and promotes soft cushion fullness.</span>
+            </div>
+          </div>
+        </div>
+        <p class="hotspot-hint-text">✦ Tap hotspots on the bottle to discover key botanical ingredients</p>
+      </div>
+
+      <!-- Right: Content -->
+      <div class="showcase-content scroll-reveal-right">
+        <span class="section-subtitle">FORMULA INNOVATION</span>
+        <h2 class="showcase-title">Gloss that feels as good as it looks.</h2>
+        <p class="showcase-lead">
+          We reimagined lip gloss from the inside out. Formulated with lightweight cold-pressed botanical lipids, plant collagen, and a triple-hyaluronic complex.
+        </p>
+
+        <ul class="feature-checklist">
+          <li id="featHyaluronic" class="feat-item active">
+            <div class="check-icon">
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            </div>
+            <div>
+              <strong>Weightless Cushion Texture</strong>
+              <span>Glides smoothly over lips without sticky or heavy weight.</span>
+            </div>
+          </li>
+          <li id="featJojoba" class="feat-item">
+            <div class="check-icon">
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            </div>
+            <div>
+              <strong>Comfortable Glass Mirror Finish</strong>
+              <span>Reflects multidimensional light like liquid crystal while locking in deep moisture.</span>
+            </div>
+          </li>
+          <li id="featCollagen" class="feat-item">
+            <div class="check-icon">
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            </div>
+            <div>
+              <strong>Buildable Color Pigment</strong>
+              <span>Swipe once for a translucent sheen, or layer for rich, vibrant coverage.</span>
+            </div>
+          </li>
+        </ul>
+
+        <div class="showcase-cta">
+          <a href="#shades" class="btn btn-primary">
+            <span>Discover All Shades</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Shade Selector with Live Swapper -->
+  <section class="section shade-selector-section" id="shades">
+    <div class="container">
+      <div class="section-header center">
+        <span class="section-subtitle">CUSTOMIZE YOUR LOOK</span>
+        <h2 class="section-title">Interactive Shade Palette</h2>
+        <p class="section-intro">Select a shade swatch to view live gloss texture, formula notes, and color payoff.</p>
+        <div class="title-accent-line"></div>
+      </div>
+
+      <div class="shade-interactive-box">
+        <!-- Left: Dynamic Visual -->
+        <div class="shade-preview-display">
+          <div class="shade-aura-bg" id="shadeAura"></div>
+          <div class="shade-image-frame" id="shadeImageFrame">
+            <img src="images/rose_glow.jpg" alt="Selected Shade Preview" id="shadeDisplayImg" class="shade-main-img" />
+          </div>
+          <div class="shade-badge-live" id="shadeBadgeLive">Golden Micro-Shimmer</div>
+        </div>
+
+        <!-- Right: Swatches & Details -->
+        <div class="shade-controls">
+          <div class="selected-shade-header">
+            <span class="shade-number-tag" id="shadeNumTag">SHADE 01</span>
+            <h3 class="selected-shade-title" id="shadeTitle">Rose Glow</h3>
+            <span class="selected-shade-finish" id="shadeFinish">Soft Sheer Rose &bull; Golden Micro-Shimmer</span>
+          </div>
+
+          <p class="selected-shade-desc" id="shadeDesc">
+            An ethereal dusty rose infused with multidimensional pearl light. Perfect for an everyday kiss of romantic warmth.
+          </p>
+
+          <div class="swatch-list-title">Select Shade:</div>
+          <div class="swatch-grid">
+            <button class="swatch-btn active" 
+                    data-name="Rose Glow" 
+                    data-num="SHADE 01"
+                    data-finish="Soft Sheer Rose • Golden Micro-Shimmer" 
+                    data-badge="Golden Micro-Shimmer"
+                    data-desc="An ethereal dusty rose infused with multidimensional pearl light. Perfect for an everyday kiss of romantic warmth." 
+                    data-img="images/rose_glow.jpg" 
+                    data-color="#E89CAE" 
+                    data-auracolor="rgba(232, 156, 174, 0.45)"
+                    aria-label="Rose Glow Swatch">
+              <span class="swatch-circle" style="background-color: #E89CAE;"></span>
+            </button>
+
+            <button class="swatch-btn" 
+                    data-name="Nude Muse" 
+                    data-num="SHADE 02"
+                    data-finish="Warm Honey Nude • Satin Finish" 
+                    data-badge="Terracotta Honey Sheen"
+                    data-desc="A velvety, comforting warm nude with earthy honey undertones for an understated chic aesthetic." 
+                    data-img="images/nude_muse.jpg" 
+                    data-color="#C88D7B" 
+                    data-auracolor="rgba(200, 141, 123, 0.45)"
+                    aria-label="Nude Muse Swatch">
+              <span class="swatch-circle" style="background-color: #C88D7B;"></span>
+            </button>
+
+            <button class="swatch-btn" 
+                    data-name="Berry Crush" 
+                    data-num="SHADE 03"
+                    data-finish="Deep Burgundy Plum • Mirror Glass" 
+                    data-badge="High-Impact Plum Gloss"
+                    data-desc="A rich moody plum tint with high-shine polish that enhances lip depth and creates a bold statement." 
+                    data-img="images/berry_crush.jpg" 
+                    data-color="#6B2335" 
+                    data-auracolor="rgba(107, 35, 53, 0.45)"
+                    aria-label="Berry Crush Swatch">
+              <span class="swatch-circle" style="background-color: #6B2335;"></span>
+            </button>
+
+            <button class="swatch-btn" 
+                    data-name="Coral Kiss" 
+                    data-num="SHADE 04"
+                    data-finish="Peach Blossom • Radiant Gloss" 
+                    data-badge="Sun-Drenched Peach"
+                    data-desc="A sun-drenched peachy coral that brings warmth, vibrancy, and a youthfully fresh flush to your smile." 
+                    data-img="images/rose_glow.jpg" 
+                    data-color="#E2725B" 
+                    data-auracolor="rgba(226, 114, 91, 0.45)"
+                    aria-label="Coral Kiss Swatch">
+              <span class="swatch-circle" style="background-color: #E2725B;"></span>
+            </button>
+
+            <button class="swatch-btn" 
+                    data-name="Clear Quartz" 
+                    data-num="SHADE 05"
+                    data-finish="Pure Crystal Sheen • High Plump" 
+                    data-badge="Ultra-Pure Crystal Sheen"
+                    data-desc="An ultra-pure transparent gloss that acts as a moisture sealant over lip liners or bare lips." 
+                    data-img="images/hero.jpg" 
+                    data-color="#F2E6E4" 
+                    data-auracolor="rgba(242, 230, 228, 0.5)"
+                    aria-label="Clear Quartz Swatch">
+              <span class="swatch-circle" style="background-color: #F2E6E4; border: 1px solid #D8C3BD;"></span>
+            </button>
+          </div>
+
+          <div class="shade-action-row">
+            <button class="btn btn-primary btn-block btn-glow" id="shadeAddBagBtn" onclick="addCurrentShadeToCart()">
+              <span>Add <span id="btnShadeName">Rose Glow</span> To Bag &bull; $26</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Brand Story -->
+  <section class="section brand-story" id="about">
+    <div class="container story-grid">
+      <div class="story-content scroll-reveal-left">
+        <span class="section-subtitle">PHILOSOPHY & VISION</span>
+        <h2 class="story-title">The Lunéa Story</h2>
+        <p class="story-lead">
+          Born from a desire for uncomplicated luxury, Lunéa Beauty was founded to celebrate your natural glow without compromise.
+        </p>
+        <p class="story-text">
+          We believe beauty should feel weightless and empowering. Every formula is crafted in small batches using clean, ethically sourced botanicals that nourish deeply while delivering radiant, glass reflectivity.
+        </p>
+        <div class="story-quote">
+          <p>“More Color. More You. It's not about hiding—it's about enhancing the confidence you already carry.”</p>
+          <cite>&mdash; Lunéa Creative Studio, Paris &bull; Los Angeles</cite>
+        </div>
+      </div>
+
+      <div class="story-visual scroll-reveal-right">
+        <div class="editorial-image-frame">
+          <img src="images/hero.jpg" alt="Lunéa Beauty Editorial Aesthetic" class="story-img" />
+          <div class="story-badge-overlay">
+            <span>Clean Beauty Certified &bull; 100% Vegan</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Lunéa (3 Features) -->
+  <section class="section why-lunea">
+    <div class="container">
+      <div class="section-header center">
+        <span class="section-subtitle">THE LUNÉA DIFFERENCE</span>
+        <h2 class="section-title">Why Choose Lunéa</h2>
+        <div class="title-accent-line"></div>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-item scroll-reveal-up">
+          <div class="feature-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"></path>
+              <path d="M12 8V12L15 15"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title">Lightweight Feel</h3>
+          <p class="feature-text">Zero stickiness, zero heavy residue. Formulated with cushiony botanical lipids for breathable daily comfort.</p>
+        </div>
+
+        <div class="feature-item scroll-reveal-up" style="animation-delay: 0.15s;">
+          <div class="feature-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          </div>
+          <h3 class="feature-title">High-Shine Finish</h3>
+          <p class="feature-text">High-refractive gloss polymer coats lips in a glassy mirror reflection that lasts through your day.</p>
+        </div>
+
+        <div class="feature-item scroll-reveal-up" style="animation-delay: 0.3s;">
+          <div class="feature-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title">Everyday Shades</h3>
+          <p class="feature-text">Meticulously calibrated skin undertone hues designed to look effortless on bare skin or layered.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clean Editorial Testimonials with Filter Pills -->
+  <section class="section testimonials-section" id="reviews">
+    <div class="container">
+      <div class="section-header center">
+        <span class="section-subtitle">REAL LOVERS, REAL SHINE</span>
+        <h2 class="section-title">What They're Saying</h2>
+        <div class="title-accent-line"></div>
+        
+        <!-- Filter Pills -->
+        <div class="review-filters">
+          <button class="review-filter-btn active" onclick="filterReviews('all', this)">All Reviews</button>
+          <button class="review-filter-btn" onclick="filterReviews('rose', this)">Rose Glow</button>
+          <button class="review-filter-btn" onclick="filterReviews('nude', this)">Nude Muse</button>
+          <button class="review-filter-btn" onclick="filterReviews('berry', this)">Berry Crush</button>
+        </div>
+      </div>
+
+      <div class="testimonials-editorial-grid" id="testimonialGrid">
+        <div class="testimonial-editorial-item scroll-reveal-up" data-review-shade="rose">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-quote">
+            “Finally, a lip gloss that gives a mirror sheen without my hair getting stuck to my lips! Rose Glow is my holy grail everyday shade.”
+          </p>
+          <div class="testimonial-author">
+            <strong>Elena Rostova</strong>
+            <span>Verified Buyer &bull; Rose Glow</span>
+          </div>
+        </div>
+
+        <div class="testimonial-editorial-item scroll-reveal-up" data-review-shade="nude" style="animation-delay: 0.15s;">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-quote">
+            “The packaging feels like high art, and the formula is ultra hydrating. Nude Muse looks stunning over lip liner!”
+          </p>
+          <div class="testimonial-author">
+            <strong>Chloe Bennett</strong>
+            <span>Beauty Columnist &bull; Nude Muse</span>
+          </div>
+        </div>
+
+        <div class="testimonial-editorial-item scroll-reveal-up" data-review-shade="berry" style="animation-delay: 0.3s;">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-quote">
+            “Berry Crush gives that bitten, romantic flush. My lips feel soft for hours even after the shine fades.”
+          </p>
+          <div class="testimonial-author">
+            <strong>Sophia Al-Mansoor</strong>
+            <span>Verified Buyer &bull; Berry Crush</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section class="final-cta-section">
+    <div class="container">
+      <div class="cta-card">
+        <div class="cta-bg-blur"></div>
+        <span class="cta-subtitle">ELEVATE YOUR ROUTINE</span>
+        <h2 class="cta-title">Ready to find your signature shade?</h2>
+        <p class="cta-text">Enjoy free express shipping on your first order plus a complimentary plush velvet pouch.</p>
+        <div class="cta-buttons">
+          <a href="#shop" class="btn btn-primary btn-lg btn-glow">
+            <span>Shop Lunéa Collection</span>
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </a>
+          <button onclick="openQuizModal()" class="btn btn-outline btn-lg">
+            <span>Take 30-Sec Quiz</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#home" class="footer-logo">
+            <span class="logo-text">LUNÉA</span>
+            <span class="logo-subtext">BEAUTY</span>
+          </a>
+          <p class="footer-tagline">More Color. More You.</p>
+          <p class="footer-desc">Effortless luxury beauty crafted with intention, clean botanicals, and high-shine innovation.</p>
+          
+          <div class="social-links">
+            <a href="#" class="social-icon" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+            <a href="#" class="social-icon" aria-label="Pinterest">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.25 2.67 7.9 6.42 9.35-.09-.79-.17-2.01.04-2.87.19-.78 1.23-5.2 1.23-5.2s-.31-.63-.31-1.56c0-1.46.85-2.55 1.9-2.55.9 0 1.33.67 1.33 1.48 0 .9-.57 2.26-.87 3.51-.25 1.05.52 1.9 1.55 1.9 1.86 0 3.29-1.96 3.29-4.79 0-2.5-1.8-4.25-4.37-4.25-2.98 0-4.72 2.23-4.72 4.54 0 .9.35 1.86.78 2.39.09.11.1.2.07.31-.08.31-.25 1.02-.28 1.16-.04.18-.16.22-.36.13-1.34-.62-2.18-2.58-2.18-4.15 0-3.38 2.46-6.49 7.09-6.49 3.72 0 6.62 2.65 6.62 6.2 0 3.7-2.33 6.68-5.57 6.68-1.09 0-2.11-.57-2.46-1.23l-.67 2.56c-.24.93-.9 2.09-1.34 2.8 1.04.32 2.14.49 3.28.49 5.52 0 10-4.48 10-10S17.52 2 12 2z"></path></svg>
+            </a>
+            <a href="#" class="social-icon" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="footer-col-title">Quick Links</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#shop">Shop Collection</a></li>
+            <li><a href="#shades">Shade Selector</a></li>
+            <li><a href="#about">Our Story</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="footer-col-title">Customer Care</h4>
+          <ul>
+            <li><a href="#">Shipping & Returns</a></li>
+            <li><a href="#">Track Your Order</a></li>
+            <li><a href="#">Ingredient Transparency</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-newsletter">
+          <h4 class="footer-col-title">The Lunéa Journal</h4>
+          <p>Subscribe to receive exclusive access to new shade drops, VIP beauty tips, and 15% off your first order.</p>
+          <form class="newsletter-form" id="newsletterForm" onsubmit="handleNewsletterSubmit(event)">
+            <div class="input-wrapper">
+              <input type="email" id="newsletterEmail" placeholder="Enter your email address" required />
+              <button type="submit" class="newsletter-btn" aria-label="Subscribe">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+              </button>
+            </div>
+            <div class="newsletter-msg" id="newsletterMsg"></div>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Lunéa Beauty Inc. All rights reserved. Designed for soft luxury.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slide-Out Cart Bag Drawer -->
+  <div class="cart-drawer-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3>Your Shopping Bag</h3>
+      <button class="cart-close" id="cartClose" aria-label="Close Bag">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItemsContainer">
+      <div class="cart-empty-state" id="cartEmptyState">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        <p>Your bag is currently empty.</p>
+        <a href="#shop" class="btn btn-primary btn-sm" onclick="closeCart()">Explore Shades</a>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display: none;">
+      <div class="cart-subtotal-row">
+        <span>Subtotal</span>
+        <span id="cartSubtotal">$0.00</span>
+      </div>
+      <p class="cart-shipping-note">Free standard shipping applied at checkout.</p>
+      <button class="btn btn-primary btn-block btn-glow" onclick="checkoutAlert()">Proceed to Checkout</button>
+    </div>
+  </aside>
+
+  <!-- Interactive Shade Finder Quiz Modal -->
+  <div class="quiz-modal-overlay" id="quizModalOverlay" onclick="closeQuizModal(event)">
+    <div class="quiz-modal-card">
+      <button class="quiz-close-btn" onclick="closeQuizModal(null)">&times;</button>
+      
+      <!-- Quiz Step 1 -->
+      <div class="quiz-step active" id="quizStep1">
+        <span class="quiz-step-tag">STEP 01 OF 02</span>
+        <h3 class="quiz-title">What is your skin undertone?</h3>
+        <p class="quiz-subtitle">This helps us match your ideal lip pigment depth.</p>
+        
+        <div class="quiz-options-grid">
+          <button class="quiz-opt-btn" onclick="nextQuizStep('warm')">
+            <strong>Warm / Golden</strong>
+            <span>Veins look greenish, gold jewelry flatters you.</span>
+          </button>
+          <button class="quiz-opt-btn" onclick="nextQuizStep('cool')">
+            <strong>Cool / Pink</strong>
+            <span>Veins look bluish, silver jewelry flatters you.</span>
+          </button>
+          <button class="quiz-opt-btn" onclick="nextQuizStep('neutral')">
+            <strong>Neutral / Olive</strong>
+            <span>Both silver and gold look effortless on you.</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quiz Step 2 -->
+      <div class="quiz-step" id="quizStep2">
+        <span class="quiz-step-tag">STEP 02 OF 02</span>
+        <h3 class="quiz-title">What is your everyday vibe?</h3>
+        <p class="quiz-subtitle">Choose the finish payoff you reach for most.</p>
+        
+        <div class="quiz-options-grid">
+          <button class="quiz-opt-btn" onclick="finishQuiz('rose')">
+            <strong>Romantic Sheer Rose</strong>
+            <span>Soft flush of pink with subtle golden sparkle.</span>
+          </button>
+          <button class="quiz-opt-btn" onclick="finishQuiz('nude')">
+            <strong>Chic Caramel Nude</strong>
+            <span>Warm earthy nude for polished understated chic.</span>
+          </button>
+          <button class="quiz-opt-btn" onclick="finishQuiz('berry')">
+            <strong>Bold Plum Berry</strong>
+            <span>Rich moody plum with deep crystal polish.</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quiz Result -->
+      <div class="quiz-step" id="quizResultStep">
+        <span class="quiz-step-tag">YOUR MATCH</span>
+        <h3 class="quiz-title" id="quizResultTitle">Your Signature Match</h3>
+        <p class="quiz-subtitle">Based on your undertone and style preference.</p>
+
+        <div class="quiz-match-card">
+          <img src="images/rose_glow.jpg" alt="Recommended Shade" id="quizResultImg" class="quiz-match-img" />
+          <div class="quiz-match-info">
+            <h4 id="quizResultShadeName">Rose Glow</h4>
+            <span id="quizResultShadeDesc">Soft Sheer Rose &bull; Golden Micro-Shimmer</span>
+            <div class="quiz-match-price">$26.00</div>
+          </div>
+        </div>
+
+        <div class="quiz-result-actions">
+          <button class="btn btn-primary btn-block btn-glow" id="quizAddBtn" onclick="addQuizMatchToCart()">
+            Add Match To Bag &bull; $26
+          </button>
+          <button class="quiz-restart-btn" onclick="resetQuiz()">Take Quiz Again</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-notification" id="toastNotification">
+    <span class="toast-icon">✓</span>
+    <span class="toast-text" id="toastText">Item added to bag</span>
+  </div>
+
+</body>
+</html>
